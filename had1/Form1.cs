@@ -12,6 +12,7 @@ namespace had1
 {
     public partial class Form1 : Form
     {
+        bool a, d, j, l;
         PictureBox had1;
         List<PictureBox> ocasHada1;
         double smer1;
@@ -29,39 +30,74 @@ namespace had1
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += Form1_KeyDown;
-            this.KeyDown += Form2_KeyDown;
+            this.KeyUp += Form1_KeyUp;
             VytvorHady();
             timer = new Timer();
-            timer.Interval = 50;
+            timer.Interval = 35;
             timer.Tick += Timer_Tick;
             timer.Start();
         }
+
+        
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.A)
             {
-                smer1 += 0.1;
+                a = true;
             }
             else if (e.KeyCode == Keys.D)
             {
-                smer1 -= 0.1;
+                d = true;
+            }
+            if (e.KeyCode == Keys.J)
+            {
+                j = true;
+            }
+            else if (e.KeyCode == Keys.L)
+            {
+                l = true;
             }
         }
-        private void Form2_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Left)
+            if (e.KeyCode == Keys.A)
             {
-                smer1 += 0.1;
+                a = false;
             }
-            else if (e.KeyCode == Keys.Right)
+            else if (e.KeyCode == Keys.D)
             {
-                smer1 -= 0.1;
+                d = false;
+            }
+            if (e.KeyCode == Keys.J)
+            {
+                j = false;
+            }
+            else if (e.KeyCode == Keys.L)
+            {
+                l = false;
             }
         }
 
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            if (a)
+            {
+                smer1 +=0.3;
+            }
+            if (d)
+            {
+                smer1 -= 0.3;
+            }
+            if (j)
+            {
+                smer2 += 0.3;
+            }
+            if (l)
+            {
+                smer2 -= 0.3;
+            }
             ocasHada1.Add(had1);
             had1 = new PictureBox();
             had1.Size = new Size(10, 10);
